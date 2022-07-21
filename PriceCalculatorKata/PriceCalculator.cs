@@ -6,6 +6,8 @@ namespace PriceCalculatorKata;
 public static class PriceCalculator
 {
     private const int DefaultTax = 20;
+
+
     private static int _taxPercentage = DefaultTax;
     public static int TaxPercentage
     {
@@ -15,6 +17,18 @@ public static class PriceCalculator
             if (!value.IsValid())
                 throw new ArgumentException("Invalid Tax Percentage", $"{value}");
             _taxPercentage = value;
+        }
+    }
+    
+    private static int _discountPercentage;
+    public static int DiscountPercentage
+    {
+        get => _discountPercentage;
+        set
+        {
+            if (!value.IsValid())
+                throw new ArgumentException("Invalid Discount Amount!", $"{value}");
+            _discountPercentage = value;
         }
     }
 
