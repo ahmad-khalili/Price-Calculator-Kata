@@ -12,6 +12,7 @@ public static class Program
         };
         PriceCalculator.DisplayPrice(book);
         PriceCalculator.DiscountPercentage = 15;
+        PriceCalculator.TaxPercentage = 21;
         Console.WriteLine();
         PriceCalculator.DisplayPrice(book);
     }
