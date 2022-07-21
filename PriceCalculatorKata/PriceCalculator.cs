@@ -38,7 +38,16 @@ public static class PriceCalculator
         Console.WriteLine($"{product.ProductName} Product reported as " +
                           $"${product.Price.SetPrecision(DecimalPrecision)} before tax and discount" +
                           $"and ${totalPrice.SetPrecision(DecimalPrecision)} " +
-                          $"after %{TaxPercentage} tax and %{DiscountPercentage} discount");
+                          $"after %{TaxPercentage} tax and {DiscountPercentage} discount");
+    }
+
+    private static void PrintDiscountAmount(Product product)
+    {
+        if (DiscountPercentage > 0)
+        {
+            var discountAmount = CalculateDiscountAmount(product.Price);
+            Console.WriteLine($"Discount Amount: ${discountAmount.SetPrecision(DecimalPrecision)}");
+        }
     }
     
     private static float CalculateTax(float price)
