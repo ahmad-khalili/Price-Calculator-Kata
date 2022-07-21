@@ -42,4 +42,27 @@ public static class PriceCalculator
                           $"${product.Price.SetPrecision(decimalPrecision)} before tax " +
                           $"and ${priceAfterTax.SetPrecision(decimalPrecision)} after %{TaxPercentage} tax");
     }
+    
+    private static float CalculateTax(float price)
+    {
+        var tax = TaxPercentage / 100F;
+        var taxAmount = price * tax;
+        var priceAfterTax = price + taxAmount;
+        return priceAfterTax;
+    }
+
+    private static float CalculateDiscountAmount(float price)
+    {
+        var discount = DiscountPercentage / 100F;
+        var discountAmount = price * discount;
+        return discountAmount;
+    }
+
+    private static float CalculateTotalPrice(float price)
+    {
+        var priceAfterTax = CalculateTax(price);
+        var discountAmount = CalculateDiscountAmount(price);
+        var totalPrice = priceAfterTax - discountAmount;
+        return totalPrice;
+    }
 }
