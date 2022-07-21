@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceCalculatorKata", "PriceCalculatorKata\PriceCalculatorKata.csproj", "{4146919B-D8D1-432C-A022-CEA1F81D4FB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PriceCalculatorKata.Common", "PriceCalculatorKata.Common\PriceCalculatorKata.Common.csproj", "{554582E7-5E2A-4D9F-8AD7-6461440339BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{4146919B-D8D1-432C-A022-CEA1F81D4FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4146919B-D8D1-432C-A022-CEA1F81D4FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4146919B-D8D1-432C-A022-CEA1F81D4FB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{554582E7-5E2A-4D9F-8AD7-6461440339BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{554582E7-5E2A-4D9F-8AD7-6461440339BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{554582E7-5E2A-4D9F-8AD7-6461440339BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{554582E7-5E2A-4D9F-8AD7-6461440339BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
