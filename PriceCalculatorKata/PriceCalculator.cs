@@ -11,11 +11,15 @@ public static class PriceCalculator
         var totalPrice = CalculateTotalPrice(product);
         var discountToPrint = DiscountCalculator.DiscountPercentage > 0 ? $"%{DiscountCalculator.DiscountPercentage}" 
             : "no";
+        var specialDiscountToPrint = DiscountCalculator.SpecialDiscountExists(product)
+            ? $"%{DiscountCalculator.SpecialDiscounts[product.UniversalProductCode]}"
+            : "no";
         Console.WriteLine($"{product.ProductName} Product reported as " +
-                          $"${product.Price.SetPrecision(Constants.DecimalPrecision)} before tax and discount" +
+                          $"${product.Price.SetPrecision(Constants.DecimalPrecision)} before tax and discount " +
                           $"and ${totalPrice.SetPrecision(Constants.DecimalPrecision)} " +
-                          $"after %{TaxCalculator.TaxPercentage} tax and {discountToPrint} discount");
-        DiscountCalculator.PrintDiscountAmount(product);
+                          $"after %{TaxCalculator.TaxPercentage} tax and {discountToPrint} discount / " +
+                          $"{specialDiscountToPrint} special discount");
+        DiscountCalculator.PrintTotalDiscountAmount(product);
     }
     private static float CalculateTotalPrice(Product product)
     {
