@@ -2,7 +2,7 @@
 
 namespace PriceCalculatorKata;
 
-public class TaxCalculator
+public static class TaxCalculator
 {
     private const int DefaultTax = 20;
 

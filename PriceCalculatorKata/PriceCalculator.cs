@@ -8,7 +8,7 @@ public static class PriceCalculator
     
     public static void DisplayPrice(Product product)
     {
-        var totalPrice = CalculateTotalPrice(product.Price);
+        var totalPrice = CalculateTotalPrice(product);
         var discountToPrint = DiscountCalculator.DiscountPercentage > 0 ? $"%{DiscountCalculator.DiscountPercentage}" 
             : "no";
         Console.WriteLine($"{product.ProductName} Product reported as " +
@@ -17,12 +17,13 @@ public static class PriceCalculator
                           $"after %{TaxCalculator.TaxPercentage} tax and {discountToPrint} discount");
         DiscountCalculator.PrintDiscountAmount(product);
     }
-    
-    private static float CalculateTotalPrice(float price)
+    private static float CalculateTotalPrice(Product product)
     {
-        var priceAfterTax = TaxCalculator.CalculateTax(price);
-        var discountAmount = DiscountCalculator.CalculateDiscountAmount(price);
-        var totalPrice = priceAfterTax - discountAmount;
+        var priceAfterTax = TaxCalculator.CalculateTax(product.Price);
+        var discountAmount = DiscountCalculator.CalculateDiscountAmount(product.Price);
+        var specialDiscountAmount = DiscountCalculator.CalculateSpecialDiscountAmount(product);
+        var totalDiscountAmount = discountAmount + specialDiscountAmount;
+        var totalPrice = priceAfterTax - totalDiscountAmount;
         return totalPrice;
     }
 }
