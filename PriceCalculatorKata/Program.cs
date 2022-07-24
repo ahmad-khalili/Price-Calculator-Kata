@@ -10,10 +10,22 @@ public static class Program
             UniversalProductCode = "12345",
             Price = 20.25F
         };
+        DiscountCalculator.DiscountPercentage = 15;
+        DiscountCalculator.AddSpecialDiscount(book.UniversalProductCode, 7);
+        
         PriceCalculator.DisplayPrice(book);
-        PriceCalculator.DiscountPercentage = 15;
-        PriceCalculator.TaxPercentage = 21;
+        
         Console.WriteLine();
-        PriceCalculator.DisplayPrice(book);
+
+        var newBook = new Product
+        {
+            ProductName = "The Big Prince",
+            UniversalProductCode = "11587",
+            Price = 20.25F
+        };
+        
+        TaxCalculator.TaxPercentage = 21;
+        DiscountCalculator.AddSpecialDiscount("789", 7);
+        PriceCalculator.DisplayPrice(newBook);
     }
 }

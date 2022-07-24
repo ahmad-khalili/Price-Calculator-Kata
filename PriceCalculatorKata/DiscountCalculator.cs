@@ -56,7 +56,8 @@ public static class DiscountCalculator
 
     public static void PrintTotalDiscountAmount(Product product)
     {
-        if (SpecialDiscountExists(product))
+        var hasDiscounts = SpecialDiscountExists(product) || DiscountPercentage > 0;
+        if (hasDiscounts)
         {
             var totalDiscountAmount = CalculateTotalDiscountAmount(product);
             Console.WriteLine($"Total Discount Amount: ${totalDiscountAmount.SetPrecision(Constants.DecimalPrecision)}");
