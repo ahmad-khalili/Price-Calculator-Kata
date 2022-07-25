@@ -2,42 +2,21 @@
 
 namespace PriceCalculatorKata;
 
-public class SpecialDiscount
+public struct SpecialDiscount
 {
-    private int _discountPercentage;
-    public int DiscountPercentage
-    {
-        get => _discountPercentage;
+    public SpecialDiscount(){}
 
+    private int _percentage = 0;
+    public int Percentage
+    {
+        get => _percentage;
         set
         {
-            if (!_discountPercentage.IsValid())
-                throw new ArgumentException("Special Discount should be higher than 0%");
-
-            _discountPercentage = value;
+            if (!value.IsValid())
+                throw new ArgumentException("Discount percentage has to be higher than 0%", $"{value}");
+            _percentage = value;
         }
     }
 
-    public Constants.TaxPrecedence TaxPrecedence { get; set; }
-
-    private string? _discountedProductCode;
-
-    public string? DiscountedProductCode
-    {
-        get => _discountedProductCode;
-        set
-        {
-            if (!_discountedProductCode.IsValid())
-                throw new ArgumentException("Invalid Product Code! (Special Discount)", $"{_discountedProductCode}");
-            
-            _discountedProductCode = value;
-        }
-    }
-
-    public bool IsBeforeTax()
-    {
-        var isBefore = TaxPrecedence.Equals(Constants.TaxPrecedence.Before);
-        if (isBefore) return true;
-        return false;
-    }
+    public Constants.TaxPrecedence TaxPrecedence { get; set; } = Constants.TaxPrecedence.After;
 }

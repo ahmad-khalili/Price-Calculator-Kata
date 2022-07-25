@@ -2,42 +2,46 @@
 
 public static class SpecialDiscountCalculator
 {
-    private static List<SpecialDiscount> _specialDiscounts = new();
+    private static Dictionary<string, SpecialDiscount> _specialDiscounts = new();
 
-    public static void AddSpecialDiscount(string productCode, int percentage, Constants.TaxPrecedence taxPrecedence)
+    public static void AddSpecialDiscount(string productCode, int discountPercentage, Constants.TaxPrecedence taxPrecedence)
     {
         var discountToAdd = new SpecialDiscount
         {
-            DiscountedProductCode = productCode,
-            DiscountPercentage = percentage,
+            Percentage = discountPercentage,
             TaxPrecedence = taxPrecedence
         };
-        
-        _specialDiscounts.Add(discountToAdd);
+        _specialDiscounts.Add(productCode, discountToAdd);
     }
     
-    private static float CalculateSpecialDiscountAmount(string productCode, float price)
+    public static float CalculateSpecialDiscountAmount(string productCode, float price)
     {
         var specialDiscount = GetSpecialDiscount(productCode);
         
-        if (specialDiscount.Equals(null)) return 0;
+        if (specialDiscount.Equals(0)) return 0;
         
-        var discountPercentage = specialDiscount.DiscountPercentage;
-        var discount = discountPercentage / 100F;
+        var discount = specialDiscount / 100F;
         var discountAmount = discount * price;
         return discountAmount;
     }
 
-    public static float CalculateSpecialDiscount(string productCode, float price)
+    public static bool SpecialDiscountExists(string productCode)
     {
-        var discountAmount = CalculateSpecialDiscountAmount(productCode, price);
-        price -= discountAmount;
-        return price;
+        return _specialDiscounts.ContainsKey(productCode);
+    }
+    
+    public static int GetSpecialDiscount(string productCode)
+    {
+        if (!SpecialDiscountExists(productCode)) return 0;
+        var discount = _specialDiscounts[productCode].Percentage;
+        return discount;
     }
 
-    public static SpecialDiscount GetSpecialDiscount(string productCode)
+    public static bool IsBeforeTax(string productCode)
     {
-        var discount = _specialDiscounts.FirstOrDefault(discount => discount.DiscountedProductCode.Equals(productCode));
-        return discount;
+        if (!SpecialDiscountExists(productCode)) return false;
+        var isBefore = _specialDiscounts[productCode].TaxPrecedence.Equals(Constants.TaxPrecedence.Before);
+        if (isBefore) return true;
+        return false;
     }
 }

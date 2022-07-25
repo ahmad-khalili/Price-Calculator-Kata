@@ -1,12 +1,24 @@
-﻿namespace PriceCalculatorKata;
+﻿using PriceCalculatorKata.Common;
+
+namespace PriceCalculatorKata;
 
 public static class TaxCalculator
 {
-    public static float CalculateTax(float price)
+    private static int _tax = Constants.DefaultTax;
+    public static int Percentage
     {
-        var tax = Tax.Percentage / 100F;
+        get => _tax;
+        set
+        {
+            if (!value.IsValid())
+                throw new ArgumentException("Invalid Tax Percentage", $"{value}");
+            _tax = value;
+        }
+    }
+    public static float CalculateTaxAmount(float price)
+    {
+        var tax = Percentage / 100F;
         var taxAmount = price * tax;
-        var priceAfterTax = price + taxAmount;
-        return priceAfterTax;
+        return taxAmount;
     }
 }
