@@ -14,7 +14,7 @@ public static class Program
 
         DiscountCalculator.Percentage = 15;
         DiscountCalculator.TaxPrecedence = Constants.TaxPrecedence.After;
-        SpecialDiscountCalculator.AddSpecialDiscount("789", 7, Constants.TaxPrecedence.Before);
+        SpecialDiscountCalculator.AddSpecialDiscount("12345", 7, Constants.TaxPrecedence.Before);
         
         PriceCalculator.DisplayPrice(book);
     }
