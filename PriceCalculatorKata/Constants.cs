@@ -15,4 +15,10 @@ public static class Constants
         Percentage,
         Value
     }
+
+    public enum CombineMethod
+    {
+        Additive,
+        Multiplicative
+    }
 }
