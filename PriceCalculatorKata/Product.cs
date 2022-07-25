@@ -4,6 +4,11 @@ namespace PriceCalculatorKata;
 
 public class Product
 {
+    public Product()
+    {
+        Expenses = new List<Expense>();
+    }
+    
     private string? _productName;
     public string? ProductName
     {
@@ -39,6 +44,37 @@ public class Product
             if (!value.IsValid())
                 throw new ArgumentException("Invalid Specified Price!", $"{value}");
             _price = value;
+        }
+    }
+
+    public List<Expense> Expenses;
+
+    public void AddExpense(string description, float amount, Constants.ExpenseType expenseType)
+    {
+        var expenseToAdd = new Expense
+        {
+            Name = description,
+            Cost = amount,
+            ExpenseType = expenseType
+        };
+        Expenses.Add(expenseToAdd);
+    }
+
+    public bool HasExpenses()
+    {
+        return Expenses.Any();
+    }
+
+    public void PrintExpenses()
+    {
+        if (HasExpenses())
+        {
+            foreach (var expense in Expenses)
+            {
+                if (expense.ExpenseType.Equals(Constants.ExpenseType.Percentage))
+                    Console.WriteLine($"{expense.Name}: ${(expense.Cost * Price).SetPrecision(Constants.DecimalPrecision)}");
+                else Console.WriteLine($"{expense.Name}: ${expense.Cost.SetPrecision(Constants.DecimalPrecision)}");
+            }
         }
     }
 }
