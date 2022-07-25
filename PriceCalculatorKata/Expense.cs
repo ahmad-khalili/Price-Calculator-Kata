@@ -31,5 +31,5 @@ public struct Expense
 
     }
     
-    public Constants.ExpenseType ExpenseType { get; set; }
+    public Constants.ValueType ValueType { get; set; }
 }
