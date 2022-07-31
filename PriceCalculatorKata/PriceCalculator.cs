@@ -35,10 +35,21 @@ public static class PriceCalculator
     public static void DisplayPrice(Product product)
     {
         var totalPrice = CalculateTotalPrice(product.Price);
+        var discountToPrint = DiscountPercentage > 0 ? $"%{DiscountPercentage}" : "no";
         Console.WriteLine($"{product.ProductName} Product reported as " +
                           $"${product.Price.SetPrecision(DecimalPrecision)} before tax and discount" +
                           $"and ${totalPrice.SetPrecision(DecimalPrecision)} " +
-                          $"after %{TaxPercentage} tax and %{DiscountPercentage} discount");
+                          $"after %{TaxPercentage} tax and {discountToPrint} discount");
+        PrintDiscountAmount(product);
+    }
+
+    private static void PrintDiscountAmount(Product product)
+    {
+        if (DiscountPercentage > 0)
+        {
+            var discountAmount = CalculateDiscountAmount(product.Price);
+            Console.WriteLine($"Discount Amount: ${discountAmount.SetPrecision(DecimalPrecision)}");
+        }
     }
     
     private static float CalculateTax(float price)
