@@ -26,7 +26,7 @@ public struct Expense
         {
             if(!value.IsValid())
                 throw new ArgumentException("Cost has to be bigger than 0!", $"{value}");
-            _cost = value;
+            _cost = value.SetPrecision(Constants.DecimalPrecisionOperations);
         }
 
     }

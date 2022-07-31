@@ -2,7 +2,7 @@
 
 namespace PriceCalculatorKata;
 
-public static class TaxCalculator
+public static class Tax
 {
     private static int _tax = Constants.DefaultTax;
     public static int Percentage
@@ -17,9 +17,9 @@ public static class TaxCalculator
     }
     public static decimal CalculateTaxAmount(decimal price)
     {
-        var tax = Percentage / 100F;
+        var tax = Percentage / 100M;
         var taxAmount = price * tax;
-        return taxAmount;
+        return taxAmount.SetPrecision(Constants.DecimalPrecisionOperations);
     }
 
     public static void PrintTaxAmount(Product product)
@@ -28,7 +28,7 @@ public static class TaxCalculator
         {
             var taxAmount = CalculateTaxAmount(product.Price);
             var currency = product.GetCurrency();
-            Console.WriteLine($"Total Tax Amount: {taxAmount.SetPrecision(Constants.DecimalPrecision)} {currency}");
+            Console.WriteLine($"Total Tax Amount: {taxAmount.SetPrecision(Constants.DecimalPrecisionFinal)} {currency}");
         }
     }
 }

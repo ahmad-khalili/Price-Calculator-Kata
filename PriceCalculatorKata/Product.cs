@@ -43,7 +43,7 @@ public class Product
         {
             if (!value.IsValid())
                 throw new ArgumentException("Invalid Specified Price!", $"{value}");
-            _price = value;
+            _price = value.SetPrecision(Constants.DecimalPrecisionOperations);
         }
     }
 
@@ -75,8 +75,8 @@ public class Product
             {
                 if (expense.ValueType.Equals(Constants.ValueType.Percentage))
                     Console.WriteLine($"{expense.Name}: " +
-                                      $"{(expense.Cost * Price).SetPrecision(Constants.DecimalPrecision)} {currency}");
-                else Console.WriteLine($"{expense.Name}: {expense.Cost.SetPrecision(Constants.DecimalPrecision)} {currency}");
+                                      $"{(expense.Cost * Price).SetPrecision(Constants.DecimalPrecisionFinal)} {currency}");
+                else Console.WriteLine($"{expense.Name}: {expense.Cost.SetPrecision(Constants.DecimalPrecisionFinal)} {currency}");
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace PriceCalculatorKata;
+﻿using PriceCalculatorKata.Common;
+
+namespace PriceCalculatorKata;
 
 public static class ExpenseCalculator
 {
@@ -17,6 +19,6 @@ public static class ExpenseCalculator
             }
         }
 
-        return totalExpenses;
+        return totalExpenses.SetPrecision(Constants.DecimalPrecisionOperations);
     }
 }

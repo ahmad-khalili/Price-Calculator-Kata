@@ -10,22 +10,22 @@ public static class PriceCalculator
     public static void DisplayPrice(Product product, Constants.CombineMethod combineMethod)
     {
         var totalPrice = CalculateTotalPrice(product, combineMethod);
-            var discountToPrint = DiscountCalculator.HasDiscount() ? $"%{DiscountCalculator.Percentage}" 
+            var discountToPrint = Discount.HasDiscount() ? $"%{Discount.Percentage}" 
             : "no";
         var specialDiscountToPrint = 
             SpecialDiscountCalculator.SpecialDiscountExists(product.UniversalProductCode!)
             ? $"%{SpecialDiscountCalculator.GetSpecialDiscount(product.UniversalProductCode!)}"
             : "No";
         var currency = product.GetCurrency();
-        Console.WriteLine($"{product.Name} Product reported as " +
-                          $"{product.Price.SetPrecision(Constants.DecimalPrecision)} {currency} before tax and discount " +
-                          $"and {totalPrice.SetPrecision(Constants.DecimalPrecision)} {currency} " +
-                          $"after %{TaxCalculator.Percentage} tax and {discountToPrint} discount / " +
+        Console.WriteLine($"{product.Name} product reported as " +
+                          $"{product.Price.SetPrecision(Constants.DecimalPrecisionFinal)} {currency} before tax and discount " +
+                          $"and {totalPrice.SetPrecision(Constants.DecimalPrecisionFinal)} {currency} " +
+                          $"after %{Tax.Percentage} tax and {discountToPrint} discount / " +
                           $"{specialDiscountToPrint} special discount");
         
         product.PrintExpenses();
         PrintTotalDiscountAmount(product);
-        TaxCalculator.PrintTaxAmount(product);
+        Tax.PrintTaxAmount(product);
     }
 
     private static decimal CalculateTotalPrice(Product product, Constants.CombineMethod combineMethod)
@@ -50,16 +50,16 @@ public static class PriceCalculator
             if (SpecialDiscountCalculator.IsBeforeTax(productCode!)) remainingPriceTax -= specialDiscountAmount;
         }
         
-        if (DiscountCalculator.HasDiscount())
+        if (Discount.HasDiscount())
         {
-            universalDiscountAmount = DiscountCalculator.CalculateDiscountAmount(remainingPriceDiscounts);
+            universalDiscountAmount = Discount.CalculateDiscountAmount(remainingPriceDiscounts);
 
             if (!isAdditive) remainingPriceDiscounts -= universalDiscountAmount;
 
-            if (DiscountCalculator.IsBeforeTax()) remainingPriceTax -= universalDiscountAmount;
+            if (Discount.IsBeforeTax()) remainingPriceTax -= universalDiscountAmount;
         }
 
-        var taxAmount = TaxCalculator.CalculateTaxAmount(remainingPriceTax);
+        var taxAmount = Tax.CalculateTaxAmount(remainingPriceTax);
         
         _totalDiscountAmount = specialDiscountAmount + universalDiscountAmount;
         
@@ -78,17 +78,17 @@ public static class PriceCalculator
         var totalExpenses = ExpenseCalculator.CalculateExpenses(product);
         
         var totalPrice = product.Price - _totalDiscountAmount + taxAmount + totalExpenses;
-        
-        return totalPrice;
+
+        return totalPrice.SetPrecision(Constants.DecimalPrecisionOperations);
     }
 
     private static void PrintTotalDiscountAmount(Product product)
     {
-        if (DiscountCalculator.Percentage > 0)
+        if (Discount.Percentage > 0)
         {
             var currency = product.GetCurrency();
             Console.WriteLine(
-                $"Total Discount Amount: {_totalDiscountAmount.SetPrecision(Constants.DecimalPrecision)} {currency}");
+                $"Total Discount Amount: {_totalDiscountAmount.SetPrecision(Constants.DecimalPrecisionFinal)} {currency}");
         }
     }
 

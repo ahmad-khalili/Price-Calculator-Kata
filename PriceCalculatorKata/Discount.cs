@@ -2,7 +2,7 @@
 
 namespace PriceCalculatorKata;
 
-public static class DiscountCalculator
+public static class Discount
 {
     private static int _percentage;
     public static int Percentage
@@ -34,9 +34,9 @@ public static class DiscountCalculator
     public static decimal CalculateDiscountAmount(decimal price)
     {
         if (!HasDiscount()) return 0;
-        var discount = Percentage / 100F;
+        var discount = Percentage / 100M;
         var discountAmount = price * discount;
-        return discountAmount;
+        return discountAmount.SetPrecision(Constants.DecimalPrecisionOperations);
     }
     
 }
