@@ -3,7 +3,8 @@
 public static class Constants
 {
     public const int DefaultTax = 20;
-    public const int DecimalPrecision = 2;
+    public const int DecimalPrecisionFinal = 2;
+    public const int DecimalPrecisionOperations = 4;
     public enum TaxPrecedence
     {
         Before,
