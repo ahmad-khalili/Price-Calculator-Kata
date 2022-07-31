@@ -21,4 +21,11 @@ public static class Constants
         Additive,
         Multiplicative
     }
+
+    public enum Currency
+    {
+        USD,
+        GBP,
+        JPY
+    }
 }
