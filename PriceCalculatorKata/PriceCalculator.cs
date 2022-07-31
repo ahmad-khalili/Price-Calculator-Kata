@@ -6,10 +6,10 @@ namespace PriceCalculatorKata;
 public static class PriceCalculator
 {
     private static float _totalDiscountAmount;
-    public static void DisplayPrice(Product product)
+    public static void DisplayPrice(Product product, Constants.CombineMethod combineMethod)
     {
-        var totalPrice = CalculateTotalPrice(product);
-        var discountToPrint = DiscountCalculator.HasDiscount() ? $"%{DiscountCalculator.Percentage}" 
+        var totalPrice = CalculateTotalPrice(product, combineMethod);
+            var discountToPrint = DiscountCalculator.HasDiscount() ? $"%{DiscountCalculator.Percentage}" 
             : "no";
         var specialDiscountToPrint = 
             SpecialDiscountCalculator.SpecialDiscountExists(product.UniversalProductCode)
@@ -25,28 +25,35 @@ public static class PriceCalculator
         PrintTotalDiscountAmount(product);
     }
 
-    private static float CalculateTotalPrice(Product product)
+    private static float CalculateTotalPrice(Product product, Constants.CombineMethod combineMethod)
     {
         float universalDiscountAmount = 0;
         float specialDiscountAmount = 0;
         var productCode = product.UniversalProductCode;
-        float remainingPrice = product.Price;
+        float remainingPriceDiscounts = product.Price;
+        float remainingPriceTax = product.Price;
+        var isAdditive = combineMethod.Equals(Constants.CombineMethod.Additive);
 
         if (SpecialDiscountCalculator.SpecialDiscountExists(productCode))
         {
             specialDiscountAmount =
-                SpecialDiscountCalculator.CalculateSpecialDiscountAmount(productCode, remainingPrice);
+                SpecialDiscountCalculator.CalculateSpecialDiscountAmount(productCode, remainingPriceDiscounts);
             
-            if (SpecialDiscountCalculator.IsBeforeTax(productCode)) remainingPrice -= specialDiscountAmount;
+            if (!isAdditive) remainingPriceDiscounts -= specialDiscountAmount;
+
+            if (SpecialDiscountCalculator.IsBeforeTax(productCode)) remainingPriceTax -= specialDiscountAmount;
         }
 
         if (DiscountCalculator.HasDiscount())
         {
-            universalDiscountAmount = DiscountCalculator.CalculateDiscountAmount(remainingPrice);
-            if (DiscountCalculator.IsBeforeTax()) remainingPrice -= universalDiscountAmount;
+            universalDiscountAmount = DiscountCalculator.CalculateDiscountAmount(remainingPriceDiscounts);
+            
+            if (!isAdditive) remainingPriceDiscounts -= universalDiscountAmount;
+            
+            if (DiscountCalculator.IsBeforeTax()) remainingPriceTax -= universalDiscountAmount;
         }
         
-        var taxAmount = TaxCalculator.CalculateTaxAmount(remainingPrice);
+        var taxAmount = TaxCalculator.CalculateTaxAmount(remainingPriceTax);
         _totalDiscountAmount = specialDiscountAmount + universalDiscountAmount;
         var totalExpenses = ExpenseCalculator.CalculateExpenses(product);
         var totalPrice = product.Price - _totalDiscountAmount + taxAmount + totalExpenses;
