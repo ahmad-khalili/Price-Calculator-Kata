@@ -11,7 +11,7 @@ public static class Program
             Price = 20.25F
         };
         PriceCalculator.DisplayPrice(book);
-        PriceCalculator.TaxPercentage = 21;
+        PriceCalculator.DiscountPercentage = 15;
         Console.WriteLine();
         PriceCalculator.DisplayPrice(book);
     }
