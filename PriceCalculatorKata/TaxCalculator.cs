@@ -24,8 +24,11 @@ public static class TaxCalculator
 
     public static void PrintTaxAmount(Product product)
     {
-        var taxAmount = CalculateTaxAmount(product.Price);
-        var currency = product.GetCurrency();
-        Console.WriteLine($"Total Tax Amount: {taxAmount} {currency}");
+        if (Percentage > 0)
+        {
+            var taxAmount = CalculateTaxAmount(product.Price);
+            var currency = product.GetCurrency();
+            Console.WriteLine($"Total Tax Amount: {taxAmount.SetPrecision(Constants.DecimalPrecision)} {currency}");
+        }
     }
 }
