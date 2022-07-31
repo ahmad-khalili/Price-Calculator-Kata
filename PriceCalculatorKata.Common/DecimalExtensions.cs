@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using Microsoft.VisualBasic;
 
 namespace PriceCalculatorKata.Common;
 
@@ -10,12 +11,9 @@ public static class DecimalExtensions
         return true;
     }
 
-    public static string SetPrecision(this decimal source, int precision)
+    public static decimal SetPrecision(this decimal source, int decimalPrecision)
     {
-        NumberFormatInfo setPrecision = new NumberFormatInfo
-        {
-            NumberDecimalDigits = 2
-        };
-        return source.ToString("N", setPrecision);
+        var newDecimal = Decimal.Round(source, decimalPrecision);
+        return newDecimal;
     }
 }
