@@ -49,6 +49,7 @@ public class Product
 
     public List<Expense> Expenses;
 
+    public Constants.Currency Currency { get; set; } = Constants.Currency.USD;
     public void AddExpense(string description, float amount, Constants.ValueType valueType)
     {
         var expenseToAdd = new Expense
