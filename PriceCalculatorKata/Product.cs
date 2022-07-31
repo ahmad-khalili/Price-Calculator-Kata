@@ -9,16 +9,16 @@ public class Product
         Expenses = new List<Expense>();
     }
     
-    private string? _productName;
-    public string? ProductName
+    private string? _name;
+    public string? Name
     {
-        get => _productName;
+        get => _name;
         
         set
         {
             if (!value.IsValid())
                 throw new ArgumentException("Invalid Product Name!", $"{value}");
-            _productName = value;
+            _name = value;
         }
     }
 
@@ -49,6 +49,7 @@ public class Product
 
     public List<Expense> Expenses;
 
+    public Constants.Currency Currency { get; set; } = Constants.Currency.USD;
     public void AddExpense(string description, float amount, Constants.ValueType valueType)
     {
         var expenseToAdd = new Expense
@@ -67,13 +68,15 @@ public class Product
 
     public void PrintExpenses()
     {
+        var currency = this.GetCurrency();
         if (HasExpenses())
         {
             foreach (var expense in Expenses)
             {
                 if (expense.ValueType.Equals(Constants.ValueType.Percentage))
-                    Console.WriteLine($"{expense.Name}: ${(expense.Cost * Price).SetPrecision(Constants.DecimalPrecision)}");
-                else Console.WriteLine($"{expense.Name}: ${expense.Cost.SetPrecision(Constants.DecimalPrecision)}");
+                    Console.WriteLine($"{expense.Name}: " +
+                                      $"{(expense.Cost * Price).SetPrecision(Constants.DecimalPrecision)} {currency}");
+                else Console.WriteLine($"{expense.Name}: {expense.Cost.SetPrecision(Constants.DecimalPrecision)} {currency}");
             }
         }
     }
