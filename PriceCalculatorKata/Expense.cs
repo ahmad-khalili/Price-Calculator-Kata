@@ -17,16 +17,16 @@ public struct Expense
         }
     }
 
-    private float _cost;
+    private decimal _cost;
 
-    public float Cost
+    public decimal Cost
     {
         get => _cost;
         set
         {
             if(!value.IsValid())
                 throw new ArgumentException("Cost has to be bigger than 0!", $"{value}");
-            _cost = value;
+            _cost = value.SetPrecision(Constants.DecimalPrecisionOperations);
         }
 
     }

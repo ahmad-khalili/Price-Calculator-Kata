@@ -1,4 +1,6 @@
-﻿namespace PriceCalculatorKata;
+﻿using PriceCalculatorKata.Common;
+
+namespace PriceCalculatorKata;
 
 public static class SpecialDiscountCalculator
 {
@@ -14,15 +16,15 @@ public static class SpecialDiscountCalculator
         _specialDiscounts.Add(productCode, discountToAdd);
     }
     
-    public static float CalculateSpecialDiscountAmount(string productCode, float price)
+    public static decimal CalculateSpecialDiscountAmount(string productCode, decimal price)
     {
         var specialDiscount = GetSpecialDiscount(productCode);
         
         if (specialDiscount.Equals(0)) return 0;
         
-        var discount = specialDiscount / 100F;
+        var discount = specialDiscount / 100M;
         var discountAmount = discount * price;
-        return discountAmount;
+        return discountAmount.SetPrecision(Constants.DecimalPrecisionOperations);
     }
 
     public static bool SpecialDiscountExists(string productCode)

@@ -34,8 +34,8 @@ public class Product
         }
     }
 
-    private float _price;
-    public float Price
+    private decimal _price;
+    public decimal Price
     {
         get => _price;
 
@@ -43,14 +43,14 @@ public class Product
         {
             if (!value.IsValid())
                 throw new ArgumentException("Invalid Specified Price!", $"{value}");
-            _price = value;
+            _price = value.SetPrecision(Constants.DecimalPrecisionOperations);
         }
     }
 
     public List<Expense> Expenses;
 
     public Constants.Currency Currency { get; set; } = Constants.Currency.USD;
-    public void AddExpense(string description, float amount, Constants.ValueType valueType)
+    public void AddExpense(string description, decimal amount, Constants.ValueType valueType)
     {
         var expenseToAdd = new Expense
         {
@@ -75,8 +75,8 @@ public class Product
             {
                 if (expense.ValueType.Equals(Constants.ValueType.Percentage))
                     Console.WriteLine($"{expense.Name}: " +
-                                      $"{(expense.Cost * Price).SetPrecision(Constants.DecimalPrecision)} {currency}");
-                else Console.WriteLine($"{expense.Name}: {expense.Cost.SetPrecision(Constants.DecimalPrecision)} {currency}");
+                                      $"{(expense.Cost * Price).SetPrecision(Constants.DecimalPrecisionFinal)} {currency}");
+                else Console.WriteLine($"{expense.Name}: {expense.Cost.SetPrecision(Constants.DecimalPrecisionFinal)} {currency}");
             }
         }
     }

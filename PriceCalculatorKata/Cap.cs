@@ -4,9 +4,9 @@ namespace PriceCalculatorKata;
 
 public struct Cap
 {
-    private float _amount;
+    private decimal _amount;
 
-    public float Amount
+    public decimal Amount
     {
         get => _amount;
         set
@@ -18,7 +18,7 @@ public struct Cap
     }
     public Constants.ValueType ValueType { get; set; }
 
-    public bool IsAboveCap(float discounts, Product product)
+    public bool IsAboveCap(decimal discounts, Product product)
     {
         if (ValueType.Equals(Constants.ValueType.Percentage))
         {

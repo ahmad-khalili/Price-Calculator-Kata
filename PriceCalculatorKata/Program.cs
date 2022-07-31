@@ -8,23 +8,17 @@ public static class Program
         {
             Name = "The Little Prince",
             UniversalProductCode = "12345",
-            Price = 20.25F
+            Price = 20.25M
         };
         
-        TaxCalculator.Percentage = 20;
-        
-        PriceCalculator.DisplayPrice(bookUsd, Constants.CombineMethod.Additive);
-        
-        Console.WriteLine();
+        Tax.Percentage = 21;
 
-        var bookGbp = new Product
-        {
-            Name = "The Little Prince",
-            UniversalProductCode = "12345",
-            Price = 17.76F,
-            Currency = Constants.Currency.GBP
-        };
+        Discount.Percentage = 15;
+
+        SpecialDiscountCalculator.AddSpecialDiscount("12345", 7, Constants.TaxPrecedence.After);
         
-        PriceCalculator.DisplayPrice(bookGbp, Constants.CombineMethod.Additive);
+        bookUsd.AddExpense("Transport", 0.03M, Constants.ValueType.Percentage);
+        
+        PriceCalculator.DisplayPrice(bookUsd, Constants.CombineMethod.Multiplicative);
     }
 }

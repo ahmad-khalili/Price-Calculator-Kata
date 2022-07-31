@@ -1,11 +1,13 @@
-﻿namespace PriceCalculatorKata;
+﻿using PriceCalculatorKata.Common;
+
+namespace PriceCalculatorKata;
 
 public static class ExpenseCalculator
 {
-    public static float CalculateExpenses(Product product)
+    public static decimal CalculateExpenses(Product product)
     {
         if (!product.HasExpenses()) return 0;
-        float totalExpenses = 0;
+        decimal totalExpenses = 0;
         foreach (var expense in product.Expenses)
         {
             if (expense.ValueType.Equals(Constants.ValueType.Value))
@@ -17,6 +19,6 @@ public static class ExpenseCalculator
             }
         }
 
-        return totalExpenses;
+        return totalExpenses.SetPrecision(Constants.DecimalPrecisionOperations);
     }
 }
