@@ -34,8 +34,8 @@ public class Product
         }
     }
 
-    private float _price;
-    public float Price
+    private decimal _price;
+    public decimal Price
     {
         get => _price;
 
@@ -50,7 +50,7 @@ public class Product
     public List<Expense> Expenses;
 
     public Constants.Currency Currency { get; set; } = Constants.Currency.USD;
-    public void AddExpense(string description, float amount, Constants.ValueType valueType)
+    public void AddExpense(string description, decimal amount, Constants.ValueType valueType)
     {
         var expenseToAdd = new Expense
         {

@@ -17,9 +17,9 @@ public struct Expense
         }
     }
 
-    private float _cost;
+    private decimal _cost;
 
-    public float Cost
+    public decimal Cost
     {
         get => _cost;
         set

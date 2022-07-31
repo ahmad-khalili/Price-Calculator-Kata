@@ -15,7 +15,7 @@ public static class TaxCalculator
             _tax = value;
         }
     }
-    public static float CalculateTaxAmount(float price)
+    public static decimal CalculateTaxAmount(decimal price)
     {
         var tax = Percentage / 100F;
         var taxAmount = price * tax;

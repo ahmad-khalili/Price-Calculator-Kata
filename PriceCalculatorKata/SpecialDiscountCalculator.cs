@@ -14,7 +14,7 @@ public static class SpecialDiscountCalculator
         _specialDiscounts.Add(productCode, discountToAdd);
     }
     
-    public static float CalculateSpecialDiscountAmount(string productCode, float price)
+    public static decimal CalculateSpecialDiscountAmount(string productCode, decimal price)
     {
         var specialDiscount = GetSpecialDiscount(productCode);
         

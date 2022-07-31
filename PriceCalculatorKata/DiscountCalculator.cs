@@ -31,7 +31,7 @@ public static class DiscountCalculator
         return false;
     }
     
-    public static float CalculateDiscountAmount(float price)
+    public static decimal CalculateDiscountAmount(decimal price)
     {
         if (!HasDiscount()) return 0;
         var discount = Percentage / 100F;

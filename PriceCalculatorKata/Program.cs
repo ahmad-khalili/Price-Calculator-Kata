@@ -8,7 +8,7 @@ public static class Program
         {
             Name = "The Little Prince",
             UniversalProductCode = "12345",
-            Price = 20.25F
+            Price = 20.25M
         };
         
         TaxCalculator.Percentage = 20;
@@ -21,7 +21,7 @@ public static class Program
         {
             Name = "The Little Prince",
             UniversalProductCode = "12345",
-            Price = 17.76F,
+            Price = 17.76M,
             Currency = Constants.Currency.GBP
         };
         

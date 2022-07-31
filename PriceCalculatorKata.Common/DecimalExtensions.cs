@@ -2,15 +2,15 @@
 
 namespace PriceCalculatorKata.Common;
 
-public static class FloatExtensions
+public static class DecimalExtensions
 {
-    public static bool IsValid(this float source)
+    public static bool IsValid(this decimal source)
     {
         if (source <= 0) return false;
         return true;
     }
 
-    public static string SetPrecision(this float source, int precision)
+    public static string SetPrecision(this decimal source, int precision)
     {
         NumberFormatInfo setPrecision = new NumberFormatInfo
         {
