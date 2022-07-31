@@ -8,7 +8,7 @@ public static class ExpenseCalculator
         float totalExpenses = 0;
         foreach (var expense in product.Expenses)
         {
-            if (expense.ExpenseType.Equals(Constants.ExpenseType.Value))
+            if (expense.ValueType.Equals(Constants.ValueType.Value))
                 totalExpenses += expense.Cost;
             else
             {

@@ -49,13 +49,13 @@ public class Product
 
     public List<Expense> Expenses;
 
-    public void AddExpense(string description, float amount, Constants.ExpenseType expenseType)
+    public void AddExpense(string description, float amount, Constants.ValueType valueType)
     {
         var expenseToAdd = new Expense
         {
             Name = description,
             Cost = amount,
-            ExpenseType = expenseType
+            ValueType = valueType
         };
         Expenses.Add(expenseToAdd);
     }
@@ -71,7 +71,7 @@ public class Product
         {
             foreach (var expense in Expenses)
             {
-                if (expense.ExpenseType.Equals(Constants.ExpenseType.Percentage))
+                if (expense.ValueType.Equals(Constants.ValueType.Percentage))
                     Console.WriteLine($"{expense.Name}: ${(expense.Cost * Price).SetPrecision(Constants.DecimalPrecision)}");
                 else Console.WriteLine($"{expense.Name}: ${expense.Cost.SetPrecision(Constants.DecimalPrecision)}");
             }

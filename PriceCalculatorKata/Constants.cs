@@ -10,7 +10,7 @@ public static class Constants
         After
     }
 
-    public enum ExpenseType
+    public enum ValueType
     {
         Percentage,
         Value
