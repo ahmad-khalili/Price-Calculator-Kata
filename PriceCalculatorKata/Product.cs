@@ -9,16 +9,16 @@ public class Product
         Expenses = new List<Expense>();
     }
     
-    private string? _productName;
-    public string? ProductName
+    private string? _name;
+    public string? Name
     {
-        get => _productName;
+        get => _name;
         
         set
         {
             if (!value.IsValid())
                 throw new ArgumentException("Invalid Product Name!", $"{value}");
-            _productName = value;
+            _name = value;
         }
     }
 
