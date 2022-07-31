@@ -16,9 +16,10 @@ public static class PriceCalculator
             SpecialDiscountCalculator.SpecialDiscountExists(product.UniversalProductCode)
             ? $"%{SpecialDiscountCalculator.GetSpecialDiscount(product.UniversalProductCode)}"
             : "No";
+        var currency = product.GetCurrency();
         Console.WriteLine($"{product.ProductName} Product reported as " +
-                          $"${product.Price.SetPrecision(Constants.DecimalPrecision)} before tax and discount " +
-                          $"and ${totalPrice.SetPrecision(Constants.DecimalPrecision)} " +
+                          $"{product.Price.SetPrecision(Constants.DecimalPrecision)} {currency} before tax and discount " +
+                          $"and {totalPrice.SetPrecision(Constants.DecimalPrecision)} {currency} " +
                           $"after %{TaxCalculator.Percentage} tax and {discountToPrint} discount / " +
                           $"{specialDiscountToPrint} special discount");
         
@@ -82,7 +83,8 @@ public static class PriceCalculator
 
     private static void PrintTotalDiscountAmount(Product product)
     {
-        Console.WriteLine($"Total Discount Amount: ${_totalDiscountAmount.SetPrecision(Constants.DecimalPrecision)}");
+        var currency = product.GetCurrency();
+        Console.WriteLine($"Total Discount Amount: {_totalDiscountAmount.SetPrecision(Constants.DecimalPrecision)} {currency}");
     }
 
     public static void SetCap(float amount, Constants.ValueType valueType)

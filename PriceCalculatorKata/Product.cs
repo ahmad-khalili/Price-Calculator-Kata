@@ -68,13 +68,15 @@ public class Product
 
     public void PrintExpenses()
     {
+        var currency = this.GetCurrency();
         if (HasExpenses())
         {
             foreach (var expense in Expenses)
             {
                 if (expense.ValueType.Equals(Constants.ValueType.Percentage))
-                    Console.WriteLine($"{expense.Name}: ${(expense.Cost * Price).SetPrecision(Constants.DecimalPrecision)}");
-                else Console.WriteLine($"{expense.Name}: ${expense.Cost.SetPrecision(Constants.DecimalPrecision)}");
+                    Console.WriteLine($"{expense.Name}: " +
+                                      $"{(expense.Cost * Price).SetPrecision(Constants.DecimalPrecision)} {currency}");
+                else Console.WriteLine($"{expense.Name}: {expense.Cost.SetPrecision(Constants.DecimalPrecision)} {currency}");
             }
         }
     }
