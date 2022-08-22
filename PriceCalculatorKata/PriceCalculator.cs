@@ -11,7 +11,7 @@ public static class PriceCalculator
         var totalPrice = CalculateTotalPrice(product);
         var discountToPrint = DiscountCalculator.DiscountPercentage > 0 ? $"%{DiscountCalculator.DiscountPercentage}" 
             : "no";
-        var specialDiscountToPrint = DiscountCalculator.SpecialDiscountExists(product)
+        var specialDiscountToPrint = DiscountCalculator.SpecialDiscounts.ContainsKey(product.UniversalProductCode)
             ? $"%{DiscountCalculator.SpecialDiscounts[product.UniversalProductCode]}"
             : "no";
         Console.WriteLine($"{product.ProductName} Product reported as " +

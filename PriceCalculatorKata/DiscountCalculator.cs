@@ -31,17 +31,10 @@ public static class DiscountCalculator
         SpecialDiscounts.Add(productCode, specialDiscountPercentage);
     }
     
-    public static bool SpecialDiscountExists(Product product)
-    {
-        var productDiscountsExists = SpecialDiscounts.ContainsKey(product.UniversalProductCode);
-        if (SpecialDiscounts.Any() && productDiscountsExists) return true;
-        return false;
-    }
-
     public static float CalculateSpecialDiscountAmount(Product product)
     {
-        if (!SpecialDiscountExists(product)) return 0;
-        var specialDiscount = SpecialDiscounts[product.UniversalProductCode] / 100F;
+        SpecialDiscounts.TryGetValue(product.UniversalProductCode, out var specialDiscountPercentage);
+        var specialDiscount = specialDiscountPercentage / 100F;
         var specialDiscountAmount = specialDiscount * product.Price;
         return specialDiscountAmount;
     }
@@ -56,7 +49,7 @@ public static class DiscountCalculator
 
     public static void PrintTotalDiscountAmount(Product product)
     {
-        var hasDiscounts = SpecialDiscountExists(product) || DiscountPercentage > 0;
+        var hasDiscounts = SpecialDiscounts.ContainsKey(product.UniversalProductCode) || DiscountPercentage > 0;
         if (hasDiscounts)
         {
             var totalDiscountAmount = CalculateTotalDiscountAmount(product);
