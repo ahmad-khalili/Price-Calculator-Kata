@@ -4,7 +4,7 @@ namespace PriceCalculatorKata.Common;
 
 public static class FloatExtensions
 {
-    public static bool IsValid(this float source)
+    public static bool IsPositive(this float source)
     {
         if (source <= 0) return false;
         return true;

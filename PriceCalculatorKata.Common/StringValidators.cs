@@ -2,7 +2,7 @@
 
 public static class StringValidators
 {
-    public static bool IsValid(this string? source)
+    public static bool HasCharacters(this string? source)
     {
         if (string.IsNullOrWhiteSpace(source)) return false;
         return true;

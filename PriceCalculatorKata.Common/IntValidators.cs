@@ -2,7 +2,7 @@
 
 public static class IntValidators
 {
-    public static bool IsValid(this int source)
+    public static bool IsPositive(this int source)
     {
         if (source <= 0) return false;
         return true;
