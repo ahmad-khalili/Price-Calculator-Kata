@@ -1,4 +1,5 @@
-﻿using PriceCalculatorKata.Common;
+﻿using System.Globalization;
+using PriceCalculatorKata.Common;
 
 namespace PriceCalculatorKata;
 
@@ -9,16 +10,11 @@ public static class PriceCalculator
     public static void DisplayPrice(Product product)
     {
         var totalPrice = CalculateTotalPrice(product);
-        var discountToPrint = DiscountCalculator.DiscountPercentage > 0 ? $"%{DiscountCalculator.DiscountPercentage}" 
-            : "no";
-        var specialDiscountToPrint = DiscountCalculator.SpecialDiscounts.ContainsKey(product.UniversalProductCode)
-            ? $"%{DiscountCalculator.SpecialDiscounts[product.UniversalProductCode]}"
-            : "no";
         Console.WriteLine($"{product.ProductName} Product reported as " +
                           $"${product.Price.SetPrecision(Constants.DecimalPrecision)} before tax and discount " +
                           $"and ${totalPrice.SetPrecision(Constants.DecimalPrecision)} " +
-                          $"after %{TaxCalculator.TaxPercentage} tax and {discountToPrint} discount / " +
-                          $"{specialDiscountToPrint} special discount");
+                          $"after %{TaxCalculator.TaxPercentage} tax and {GetDiscountAmount()} discount / " +
+                          $"{GetSpecialDiscountAmount(product.UniversalProductCode)} special discount");
         DiscountCalculator.PrintTotalDiscountAmount(product);
     }
     private static float CalculateTotalPrice(Product product)
@@ -29,5 +25,21 @@ public static class PriceCalculator
         var totalDiscountAmount = discountAmount + specialDiscountAmount;
         var totalPrice = priceAfterTax - totalDiscountAmount;
         return totalPrice;
+    }
+
+    private static string GetDiscountAmount()
+    {
+        if (DiscountCalculator.DiscountPercentage > 0)
+            return DiscountCalculator.DiscountPercentage.ToString();
+        
+        return "no";
+    }
+
+    private static string GetSpecialDiscountAmount(string universalProductCode)
+    {
+        if (DiscountCalculator.SpecialDiscounts.TryGetValue(universalProductCode, out var specialDiscountPercentage))
+            return specialDiscountPercentage.ToString();
+
+        return "no";
     }
 }
