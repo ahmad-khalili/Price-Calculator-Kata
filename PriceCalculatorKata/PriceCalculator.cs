@@ -12,7 +12,7 @@ public static class PriceCalculator
         get => _taxPercentage;
         set
         {
-            if (!value.IsValid())
+            if (!value.IsPositive())
                 throw new ArgumentException("Invalid Tax Percentage", $"{value}");
             _taxPercentage = value;
         }

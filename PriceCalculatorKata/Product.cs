@@ -11,7 +11,7 @@ public class Product
         
         set
         {
-            if (!value.IsValid())
+            if (!value.HasCharacters())
                 throw new ArgumentException("Invalid Product Name!", $"{value}");
             _productName = value;
         }
@@ -23,7 +23,7 @@ public class Product
         get => _universalProductCode;
         set
         {
-            if(!value.IsValid())
+            if(!value.HasCharacters())
                 throw new ArgumentException("Invalid Product Code!", $"{value}");
             _universalProductCode = value;
         }
@@ -36,7 +36,7 @@ public class Product
 
         set
         {
-            if (!value.IsValid())
+            if (!value.IsPositive())
                 throw new ArgumentException("Invalid Specified Price!", $"{value}");
             _price = value;
         }
