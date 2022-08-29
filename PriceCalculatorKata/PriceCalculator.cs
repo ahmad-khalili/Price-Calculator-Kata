@@ -20,7 +20,8 @@ public static class PriceCalculator
                           $"and ${totalPrice.SetPrecision(Constants.DecimalPrecision)} " +
                           $"after %{TaxCalculator.Percentage} tax and {discountToPrint} discount / " +
                           $"{specialDiscountToPrint} special discount");
-
+        
+        product.PrintExpenses();
         PrintTotalDiscountAmount(product);
     }
 
@@ -46,11 +47,9 @@ public static class PriceCalculator
         }
         
         var taxAmount = TaxCalculator.CalculateTaxAmount(remainingPrice);
-        Console.WriteLine(taxAmount);
-        Console.WriteLine(specialDiscountAmount);
-        Console.WriteLine(universalDiscountAmount);
         _totalDiscountAmount = specialDiscountAmount + universalDiscountAmount;
-        var totalPrice = product.Price - _totalDiscountAmount + taxAmount;
+        var totalExpenses = ExpenseCalculator.CalculateExpenses(product);
+        var totalPrice = product.Price - _totalDiscountAmount + taxAmount + totalExpenses;
         return totalPrice;
     }
 

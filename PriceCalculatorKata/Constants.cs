@@ -9,4 +9,10 @@ public static class Constants
         Before,
         After
     }
+
+    public enum ExpenseType
+    {
+        Percentage,
+        Value
+    }
 }
