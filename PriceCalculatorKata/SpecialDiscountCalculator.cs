@@ -32,9 +32,8 @@ public static class SpecialDiscountCalculator
     
     public static int GetSpecialDiscount(string productCode)
     {
-        if (!SpecialDiscountExists(productCode)) return 0;
-        var discount = _specialDiscounts[productCode].Percentage;
-        return discount;
+        _specialDiscounts.TryGetValue(productCode, out var discount);
+        return discount.Percentage;
     }
 
     public static bool IsBeforeTax(string productCode)
