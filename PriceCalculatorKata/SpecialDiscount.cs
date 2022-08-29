@@ -2,10 +2,8 @@
 
 namespace PriceCalculatorKata;
 
-public struct SpecialDiscount
+public class SpecialDiscount
 {
-    public SpecialDiscount(){}
-
     private int _percentage = 0;
     public int Percentage
     {
@@ -17,6 +15,5 @@ public struct SpecialDiscount
             _percentage = value;
         }
     }
-
     public Constants.TaxPrecedence TaxPrecedence { get; set; } = Constants.TaxPrecedence.After;
 }
