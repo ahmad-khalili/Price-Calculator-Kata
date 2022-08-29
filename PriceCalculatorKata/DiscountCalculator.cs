@@ -27,8 +27,7 @@ public static class DiscountCalculator
     public static bool IsBeforeTax()
     {
         var isBefore = TaxPrecedence.Equals(Constants.TaxPrecedence.Before);
-        if (isBefore) return true;
-        return false;
+        return isBefore;
     }
     
     public static float CalculateDiscountAmount(float price)
